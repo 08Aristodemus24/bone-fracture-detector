@@ -1,0 +1,76 @@
+# Like Python, kv files use indentation to define nested blocks
+# a class name inside the < and > characters is a Widget rule
+# you can think of a widget as an element in javascript or html
+# where an element can have event listeners and can have multiple
+# descendant elements or children elements in this case our canvas
+# widget has a child rectangle
+
+# typically here is where we define what our widgets/elements looklike
+# and the rest of its functionality we define in our main .py file
+# containing the code that rusn our app
+
+<PongBall>:
+    size: 50, 50
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<PongGame>:
+    canvas:
+        Rectangle:
+            # we position our rectangle using the attribute of the canvas
+            # self.center_x minus 5 because our rectangle has a size of 10
+            # and 10 / 2 is 5
+            pos: self.center_x - 5, 0
+
+            # we also take the height of the canvas and use it as the height
+            # also of the rectangle element that we add to the canvas element
+            size: 10, self.height
+
+    Label:
+        font_size: 70
+        font_name: "Poppins"
+
+        # we take the width of the entire application and divide it by 4
+        # to get a quarter of it and this will be the position of our 
+        # Label's center x coordinate
+        center_x: root.width / 4
+
+        # by default our application has top 0 and if we wanted to move
+        # our label down of course we go down negatively down the y-axis
+        # and so we minus using any number e.g. 50
+        top: root.top - 50
+
+        text: "0"
+
+    Label:
+        font_size: 70
+        font_name: "Poppins"
+
+        # we take the width of the entire application and multiply it
+        # instead to get 75% of it and this will be the position of 
+        # our Label's center x coordinate
+        center_x: root.width * (3 / 4)
+
+        # by default our application has top 0 and if we wanted to move
+        # our label down of course we go down negatively down the y-axis
+        # and so we minus using any number e.g. 50
+        top: root.top - 50
+
+        text: "0"
+
+    Label:
+        font_size: 10
+        font_name: "Poppins"
+
+        # by default our application has top 0 and if we wanted to move
+        # our label down of course we go down negatively down the y-axis
+        # and so we minus using any number e.g. 50
+        top: root.top - 50
+
+        text: "hello world this is a poppins font"
+
+    PongBall:
+        center: self.parent.center
+
