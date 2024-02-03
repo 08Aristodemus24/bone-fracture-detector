@@ -17,6 +17,8 @@
             size: self.size
 
 <PongGame>:
+    ball: pong_ball
+
     canvas:
         Rectangle:
             # we position our rectangle using the attribute of the canvas
@@ -72,5 +74,26 @@
         text: "hello world this is a poppins font"
 
     PongBall:
+        # this id gives our PongBall widget an identifier that can be used
+        # by a variable defined at the top of our PongGame widget, which in
+        # this case is ball, and this variable can therefore be used in our
+        # game script containing all the functionality as a reference
+
+        # def update(self, dt):
+        #   """
+        #   dt just means date time
+        #   """
+
+        #   ...
+
+            # we've already defined our PongBall widget to have a
+            # method self.move to move from one point to another
+            # self.ball.move()
+
+        #   ...
+
+        id: pong_ball
         center: self.parent.center
+
+
 

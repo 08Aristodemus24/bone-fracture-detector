@@ -3,8 +3,10 @@ from kivy.uix.widget import Widget
 from kivy.vector import Vector
 from kivy.properties import (
     ReferenceListProperty, 
-    NumericProperty
+    NumericProperty,
+    ObjectProperty
 )
+from kivy.clock import Clock
 
 from kivy.uix.button import Button
 from kivy.graphics import Color, Ellipse, Line
@@ -29,11 +31,33 @@ class PongBall(Widget):
         self.pos = Vector(*self.velocity) + self.pos
 
 class PongGame(Widget):
-    pass
+    ball = ObjectProperty(None)
+
+    def update(self, dt):
+        """
+        dt just means date time
+        """
+
+        # we've already defined our PongBall widget to have a
+        # method self.move to move from one point to another
+        self.ball.move()
+
+        # bounce off top and bottom
+        if (self.ball.y < 0) or (self.ball.top > self.height):
+            self.ball.velocity_y *= -1
+
+        # bounce off left and right
+        if (self.ball.x < 0) or (self.ball.right > self.width):
+            self.ball.velocity_x *= -1
 
 class PongApp(App):
     def build(self):
         pong_game = PongGame()
+
+        # here since we've instantiated the pongGame class we can
+        # access its method self.update and pass it as a callback
+        # that Clock.schedule_interval can call over and over
+        Clock.schedule_interval(pong_game.update, 1.0 / 60.0)
         return pong_game
 
 
