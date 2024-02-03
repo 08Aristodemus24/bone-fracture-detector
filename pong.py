@@ -12,7 +12,7 @@ from kivy.uix.button import Button
 from kivy.graphics import Color, Ellipse, Line
 
 from kivy.core.text import LabelBase
-
+from random import randint
 
 class PongBall(Widget):
     # velocity of the ball on x and y axis
@@ -32,6 +32,10 @@ class PongBall(Widget):
 
 class PongGame(Widget):
     ball = ObjectProperty(None)
+
+    def serve_ball(self):
+        self.ball.center = self.center
+        self.ball.velocity = Vector(4, 0).rotate(randint(0, 360))
 
     def update(self, dt):
         """
@@ -53,6 +57,10 @@ class PongGame(Widget):
 class PongApp(App):
     def build(self):
         pong_game = PongGame()
+
+        # initialize the game by randomly serving the ball to a different
+        # x and y coordinate
+        pong_game.serve_ball()
 
         # here since we've instantiated the pongGame class we can
         # access its method self.update and pass it as a callback
